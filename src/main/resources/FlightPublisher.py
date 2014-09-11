@@ -8,21 +8,24 @@ from org.vertx.java.core.json import JsonObject
 
 
 def handler(msg):
-    print 'Received message'
+    print "Received message"
     flights = JsonArray()
     for flight in msg.body:
         the_flight = JsonObject()
-        the_flight.putString("name", flight.getString("callsign"))
-        the_flight.putString("planeType", flight.getString("equipment") )
-        position_array =  flight.getArray("positions").toArray()
+        #print str(flight)
+        #the_flight.putString("name", flight.getString("callsign"))
+        #the_flight.putString("planeType", flight.getString("equipment") )
+        the_flight.putString("speed", flight.get("properties").get("direction"))
+        the_flight.putString("alt",  flight.get("properties").get("route"))
+        position_array =  flight.get("geometry").get("coordinates")
+        #print position_array
 
         #There can sometimes be two positions readings but I am not sure what they do so I am just going to take the first
-        position =  position_array[0]
+        #position =  position_array[0]
 
-        the_flight.putNumber("lat", position.get("lat"))
-        the_flight.putNumber("lon", position.get("lon"))
-        the_flight.putNumber("speed", position.get("speedMph"))
-        the_flight.putNumber("alt",  position.get("altitudeFt"))
+        the_flight.putNumber("lat", position_array[1])
+        the_flight.putNumber("lon", position_array[0])
+        
 
 
         flights.addObject(the_flight)

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Flights United</title>
+    <title>Where's My BUS!</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
@@ -29,7 +29,7 @@
 
 </head>
 <body>
-<h1 id="title">Flights United</h1>
+<h1 id="title">Where's My Bus</h1>
 <div id="map"></div>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/vertx/2.0.0/vertxbus.min.js"></script>
@@ -40,18 +40,20 @@
 
 //////////////// set up the map stuff
 
+    /*
     var myIcon = L.icon({
         iconUrl: "http://cdn.leafletjs.com/leaflet-0.7.2/images/marker-icon.png",
         iconSize: [12, 20]
 
     });
+    */
 
 
-    var map = L.map('map').setView([39.82, -98.57], 6);
+    var map = L.map('map').setView([35.04563, -85.30968], 14);
     var markerLayerGroup = L.layerGroup().addTo(map);
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: 'Running on <a href="http://openshift.com">OpenShift</a>, United Flight data from <a href="https://developer.flightstats.com/"> FlightStats</a>, Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+        maxZoom: 17,
+        attribution: 'Running on <a href="http://openshift.com">OpenShift</a>, Bus data from Jason!, Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     }).addTo(map);
 
     function pinTheMap(data){
@@ -63,7 +65,7 @@
         var markerArray = new Array(data.length)
         for (var i = 0; i < data.length; i++){
             plane = data[i];
-            markerArray[i] = L.marker([plane.lat, plane.lon], {icon: myIcon}).bindPopup(plane.name + "<br> Alititude: " + plane.alt + "ft <br /> Speed: " + plane.speed + "mph" );
+            markerArray[i] = L.marker([plane.lat, plane.lon]).bindPopup("<br> Route: " + plane.alt + " <br /> Direction: " + plane.speed );
         }
 
         markerLayerGroup = L.layerGroup(markerArray).addTo(map);

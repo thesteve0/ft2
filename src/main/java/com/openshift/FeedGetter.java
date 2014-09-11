@@ -19,15 +19,15 @@ public class FeedGetter extends Verticle{
 
         //Make out Pool of HTTP client connections
         //can not use keep
-        final HttpClient webClient = vertx.createHttpClient().setSSL(true).setTrustAll(true).setPort(443).setKeepAlive(true).setHost("api.flightstats.com");
+        final HttpClient webClient = vertx.createHttpClient().setPort(80).setKeepAlive(true).setHost("api.chab.us");
         final String appid = System.getenv("OPENSHIFT_FLIGHTSTATS_ID");
         final String appkey = System.getenv("OPENSHIFT_FLIGHTSTATS_KEY");
 
 
-        final String url = "/flex/flightstatus/rest/v2/json/fleet/tracks/UA?appId="+appid+"&appKey="+appkey+"&includeFlightPlan=false&maxPositions=1&codeshares=false&maxFlights=300";
+        final String url = "/buses";
         System.out.println("URL = " + url);
         //Ok start by setting a job that grabs the feed every 10 seconds
-        vertx.setPeriodic(10000, new Handler<Long>() {
+        vertx.setPeriodic(2000, new Handler<Long>() {
 
 
             public void handle(Long timerID){
@@ -38,7 +38,7 @@ public class FeedGetter extends Verticle{
                         httpClientResponse.bodyHandler(new Handler<Buffer>(){
                             public void handle(Buffer data){
                                 JsonObject allJSON = new JsonObject(data.toString());
-                                JsonArray flightsArray = allJSON.getField("flightTracks");
+                                JsonArray flightsArray = allJSON.getField("features");
 
                                 //We are now set to put the flightsArray on the bus - then the python verticle will grab the Array and Process it.
                                 vertx.eventBus().publish("raw.flights", flightsArray);

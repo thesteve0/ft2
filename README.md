@@ -2,7 +2,6 @@
 
 Prequisites:
 1) You need an OpenShift account
-2) You need a [https://developer.flightstats.com/](FlightStats account)
 3) You need Maven installed on your local machine
 
 Create a new OpenShift application with a vert.x cartridge
@@ -11,10 +10,9 @@ Create a new OpenShift application with a vert.x cartridge
 
 For best performance and flexibility I used a medium gear and I made it scalable.
 
-You will need to add your FlightStats environment variables to the application after creation
-
-    rhc set-env set OPENSHIFT_FLIGHTSTATS_ID=<app id>
-    rhc set-env set OPENSHIFT_FLIGHTSTATS_KEY=<key>
+**This app works against a temporary API provided by Jason Denizac for buses in Chattanooga.
+I did this as a last minute emergency rewrite so the object names still refer to airline flights
+rather than buses.** 
 
 
 Then clone this repo locally.
