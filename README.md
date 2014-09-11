@@ -1,6 +1,7 @@
 # Vert.x Example Maven Project which has Java, Python, and a spatial feed.
 
 Prequisites:
+
 1) You need an OpenShift account
 
 2) You need Maven installed on your local machine
