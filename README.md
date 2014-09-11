@@ -2,7 +2,8 @@
 
 Prequisites:
 1) You need an OpenShift account
-3) You need Maven installed on your local machine
+
+2) You need Maven installed on your local machine
 
 Create a new OpenShift application with a vert.x cartridge
 
